@@ -6,7 +6,7 @@
   	2. compare RSS of solution models.
   	3. print top #(5) solutions.
   - _We can compare models with approved solution formula of field of statistics/economics seen on graph._
-  ![program output](out imgs/result_low_precision.png)
+  ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/result_low_precision.png)
   ***
 - haloLearn.py
   - [x] a simple algorithm for prediction problem. Can be improved by comparing two functions on a step, thus reduce functions that exceed turning points.
@@ -17,4 +17,4 @@
       5. if estimated RSS is better than RSS before; continue in this direction.
       6. if not; change direction to revert and decrease precision to get closer to better model.
   - We see how function works by plotting steps on figure. And compare with statistics formula.
-  ![program output](out imgs/out2.gif)
+  ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/output2.gif)
