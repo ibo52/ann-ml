@@ -18,3 +18,11 @@
       6. if not; change direction to revert and decrease precision to get closer to better model.
   - We see how function works by plotting steps on figure. And compare with statistics formula.
   ![program output](out imgs/out2.gif)
+  ***
+- haloLearn-multi.py
+  -[x] multiple regression introduction. Curving the line to make more accurate data model
+   1. Calculate simple linear regression.
+   2. Calculate the curve function(x^2) coefficient(w2) to make model much more pretty fitting.
+   3. sum linear function and curve function. ->Y=w2(x^2) +f(x)
+   4. determine curve coefficient by estimated RSS.
+   5. go step 2(loop), to repeat as much as stepsize.
