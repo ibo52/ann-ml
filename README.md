@@ -17,8 +17,7 @@
       5. if estimated RSS is better than RSS before; continue in this direction.
       6. if not; change direction to revert and decrease precision to get closer to better model.
   - We see how function works by plotting steps on figure. And compare with statistics formula.
-<<<<<<< HEAD
-  ![program output](out imgs/out2.gif)
+  ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/output2.gif)
   ***
 - haloLearn-multi.py
   - [x] multiple regression introduction. Curving the line to make more accurate data model
@@ -28,5 +27,4 @@
    4. determine curve coefficient by estimated RSS.
    5. go step 2(loop), to repeat as much as stepsize.
 =======
-  ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/output2.gif)
 >>>>>>> 8a4ef523ec5ffea4869786b832f4cbc46e95fbf6
