@@ -147,9 +147,9 @@ sq_ft=[2, 4, 6, 12, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 3
 price=[2, 2,4 ,3, 4, 5 , 9,7,8, 10, 15 ,14 ,16, 18, 29, 32,35,39 ,36, 55, 59, 63, 64, 65, 72, 109, 111, 124 ,127, 125, 126]# Y=f(x)
 
 if __name__=="__main__":
-    fig1.canvas.manager.set_window_title('simple linear regression:haloLearn approach')
+    fig1.canvas.manager.set_window_title('curve + linear regression:haloLearn approach')
 
-    fig1.clf()
+    plt.clf()
     plt.scatter(sq_ft,price)
     #plt.xlim(0,34)
     #plt.ylim(0,28)

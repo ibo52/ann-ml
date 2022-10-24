@@ -83,3 +83,5 @@ def coeff_x(mean_x,mean_y,mean_xy,mean_x2,n):
 def const_x(mean_x,mean_y,slope,n):
     b=(mean_y- slope*mean_x)/n
     return b
+if __name__=="__main__":
+    print("utils for simple calcs")

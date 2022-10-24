@@ -50,12 +50,6 @@ def calc_errors():
         ei=std_dev(price,a)
         err_l.append(ei)
 
-brute_force()
-calc_errors()
-indexes=cis(err_l,5)#find the #(5) of indexes that have least error rates
-
-
-
 
 #---approved solution by field of economics---
 x=sq_ft
@@ -76,27 +70,37 @@ fx=[]#formula results of field of economics
 
 for out in x:
     fx.append( f(out,a,b) )
-plt.plot(x,fx,"o-",label=f"{a:.4f}x+{b:.4f} (economics formula)")
+plt.plot(x,fx,"o-",label=f"{a:.4f}x+{b:.4f} err:{std_dev(price,fx):.4f} (economics formula)")
 
 #---approved solution by field of economics---
 
+if __name__=="__main__":
+    brute_force()
+    calc_errors()
+    indexes=cis(err_l,5)#find the #(5) of indexes that have least error rates
 
 
 
 
-#-----plot the results that have minimal error rates-----
-for _ in indexes:
-    plt.plot(sq_ft, brute_f_list[_],"--",label=f"y={ funcs[_] } err:{err_l[_]:.4f}")
-#--------------------------------------------------------
 
-"""#!!! VERY SLOW TO DRAW THIS !!!
-#plot ALL brute force function results
-fig2=plt.figure("all functions draw")
-for a,b,c in zip(brute_f_list,funcs,err_l):
-    plt.plot(sq_ft,a,"--",label=f"y={ b } err:{c:.3f}")
 
-fig2.legend()#prints labels
-"""
 
-fig1.legend(loc=2)
-plt.show()
+
+
+
+    #-----plot the results that have minimal error rates-----
+    for _ in indexes:
+        plt.plot(sq_ft, brute_f_list[_],"--",label=f"y={ funcs[_] } err:{err_l[_]:.4f}")
+    #--------------------------------------------------------
+
+    """#!!! VERY SLOW TO DRAW THIS !!!
+    #plot ALL brute force function results
+    fig2=plt.figure("all functions draw")
+    for a,b,c in zip(brute_f_list,funcs,err_l):
+        plt.plot(sq_ft,a,"--",label=f"y={ b } err:{c:.3f}")
+
+    fig2.legend()#prints labels
+    """
+
+    fig1.legend(loc=2)
+    plt.show()
