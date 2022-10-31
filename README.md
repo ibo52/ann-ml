@@ -20,11 +20,14 @@
   ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/output2.gif)
   ***
 - haloLearn-multi.py
-  - [x] multiple regression introduction. Curving the line to make more accurate data model
-   1. Calculate simple linear regression.
-   2. Calculate the curve function(x^2) coefficient(w2) to make model much more pretty fitting.
-   3. sum linear function and curve function. ->Y=w2(x^2) +f(x)
-   4. determine curve coefficient by estimated RSS.
-   5. go step 2(loop), to repeat as much as stepsize.
+  - [x] polinomial regression. Curving the line to make more accurate data model. Same algorithm with haloLearn. Have logarithmic velocity stepping precision.
+  - _higher orders can be added by specifying power parameter of function._
+    1. Calculate simple linear regression.
+    2. Calculate the curve function(x^2) coefficient(w2) to make model much more pretty fitting.
+    3. sum linear function and curve function. ->Y=w2(x^2) +f(x)
+    4. determine curve coefficient by estimated RSS.
+    5. go step 2(loop), to repeat as much as stepsize.
+    6. stop if delta-RSS if smaller than 1e-4
+    7. sum function with linear one.
 =======
 >>>>>>> 8a4ef523ec5ffea4869786b832f4cbc46e95fbf6

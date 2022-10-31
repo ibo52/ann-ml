@@ -7,7 +7,8 @@ from utils import *#my function definitions
 
 from simple_linear_regression_example_ANN import *
 
-def multi_f(stepsize):
+#polinomial regression
+def multi_f(stepsize,power=2):
     """calculates (a2)x^2 + f(x)=ax +b"""
     global price
     global sq_ft
@@ -16,26 +17,25 @@ def multi_f(stepsize):
     global err_l
     global brute_f_list
 
+    #best result of linear calculation done before
     brute_f_list=brute_f_list[-1:]
     
     funcs=funcs[-1:]
     err_l=err_l[-1:]
     
-    w2=(brute_f_list[0][0]-brute_f_list[0][1])/len(brute_f_list[0])
+    w2=0
 
     precision=0.1
-    func=f"init: {w2}x^2 +f(x)"
+    func=f"init: {w2:.4f}x^2 +f(x)"
     
 
     #__initial rss values required for model quality determination__
 
-    temp=[ w2*(sq_ft[_]**2)+brute_f_list[0][_] for _ in range(len(sq_ft)) ]
-    
-    RSS=std_dev(price,temp)
+    #w2=0 as initial value, so func will be linear(brute_f_list[0] ) on init
+    RSS=std_dev(price,brute_f_list[0])
     w2+=precision
 
     funcs[0]=(func )
-    brute_f_list[0]=temp
     err_l[0]=RSS
 
     
@@ -45,7 +45,9 @@ def multi_f(stepsize):
         
         for x in range(len(sq_ft)):
             
-            out=w2*( sq_ft[x] **2) + brute_f_list[0][x]
+            #deprecated calculation
+            #out=w2*( sq_ft[x] **2) + brute_f_list[0][x]
+            out= f(x=sq_ft[x], a=w2, b=0, power=power)
             temp.append(out)
 
         ei=std_dev(price,temp)
@@ -79,21 +81,20 @@ def haloLearn(stepsize:int):
     global err_l
     global brute_f_list
 
-    precision=0.1#func learning precision
+    precision=1#func learning precision
+    k=1#direction coefficient
     
     dy=mean(price)
     dx=mean(sq_ft)
 
-    mean_slope=0.0122#dy/dx
+    mean_slope=dy/dx
     w0=0
-    func=f"init: x^2 +{mean_slope:.4f}x+{w0}"
-    
+    func=f"init: {mean_slope:.4f}x+{w0}"
 
     #__initial rss values required for model quality determination__
     temp=[]
-    c=0
+    
     for x in sq_ft:
-        c+=1
         out=f(x=x, a=mean_slope,b=w0)
         temp.append(out)
 
@@ -120,9 +121,16 @@ def haloLearn(stepsize:int):
 
         ei=std_dev(price,temp)
 
+        #increase the velocity logarithmically as we on true direction
+        precision=np.log(abs(precision) + abs(RSS-ei))
+        
         #if less error than function before, change RSS to new min
         #print(f"step{_} f:{mean_slope}x |prec:{precision} estimated e:{ei} Rss={RSS}")
         if ei<RSS:
+            if abs(ei-RSS)<1e-4:
+                '''REACHED LIMITS OF DELTA RSS:'''
+                break;
+            
             RSS=ei
             """functions can append here
             thus it will be more mem efficient
@@ -132,12 +140,22 @@ def haloLearn(stepsize:int):
         else:
             #print(f"  ->step:{_} change direction,because {ei}>=RSS ")
             RSS=ei
-            precision*=-0.5#reverts the slope direction
-            """cahnge direction and degrade precision
-            to estimate better model results """
+            '''
+            if precision==0:
+                precision=2.71828
+            if precision<0:
+                precision=np.log(abs(precision))#reverts the slope direction
+            else:
+                precision=np.log(precision)
+            '''
+            k*=-0.5 #change direction and lower the stepping range
+            precision=1 #reset stepping range precision
             
-        mean_slope+=precision
-        func=f"step:{_+1} {mean_slope:.4f}x^2 +{mean_slope:.4f}x+{w0}"
+            """change direction and reset precision
+            to approach limit of last best model result """
+            
+        mean_slope+=precision*k
+        func=f"step:{_+1} {mean_slope:.4f}x+{w0:.4f}"
         funcs.append(func)
         brute_f_list.append(temp)
         err_l.append(ei)
@@ -151,11 +169,11 @@ if __name__=="__main__":
 
     plt.clf()
     plt.scatter(sq_ft,price)
-    #plt.xlim(0,34)
-    #plt.ylim(0,28)
+    plt.xlim(0,60)
+    plt.ylim(0,120)
     print("Example:multipleReg. haloLearn\nrun with step size=16")
     haloLearn(16)
-    multi_f(16)
+    #multi_f(16)
     
     for b,f,e in zip(brute_f_list,funcs,err_l):
         

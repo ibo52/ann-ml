@@ -5,9 +5,9 @@ my simple linear regression functions"""
 #
 #
 #simple linear solution function a*x+b
-def f(x, a=1, b=0):
+def f(x, a=1, b=0,power=1):
     """generates linear function by given a,b,x values and returns result of x"""
-    y=lambda x:a*x+b
+    y=lambda x:a*(x**power)+b
     return y(x)
 
 def mean(data:list):
