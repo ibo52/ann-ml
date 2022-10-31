@@ -29,5 +29,6 @@
     5. go step 2(loop), to repeat as much as stepsize.
     6. stop if delta-RSS if smaller than 1e-4
     7. sum function with linear one.
+  - ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/polinomial_example.gif)
 =======
 >>>>>>> 8a4ef523ec5ffea4869786b832f4cbc46e95fbf6
