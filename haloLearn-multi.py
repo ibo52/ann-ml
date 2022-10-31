@@ -25,7 +25,8 @@ def multi_f(stepsize,power=2):
     
     w2=0
 
-    precision=0.1
+    precision=1#step precision
+    k=1# direction coeff
     func=f"init: {w2:.4f}x^2 +f(x)"
     
 
@@ -51,9 +52,14 @@ def multi_f(stepsize,power=2):
             temp.append(out)
 
         ei=std_dev(price,temp)
-
+        precision=np.log(abs(precision) + abs(RSS-ei))
         #if less error than function before, change RSS to new min
         #print(f"step{_} f:{mean_slope}x |prec:{precision} estimated e:{ei} Rss={RSS}")
+        if abs(ei-RSS)<1e-4:
+            '''REACHED LIMITS OF DELTA RSS:'''
+            print('break at:',_,'| DELTA RSS=',(ei-RSS))
+            break;
+        
         if ei<RSS:
             RSS=ei
             """functions can append here
@@ -64,10 +70,11 @@ def multi_f(stepsize,power=2):
         else:
             #print(f"  ->step:{_} change direction,because {ei}>=RSS ")
             RSS=ei
-            precision*=-0.5#reverts the slope direction
-            """cahnge direction and degrade precision
-            to estimate better model results """
-        w2+=precision
+            
+            k*=-0.5 #change direction and lower the stepping range
+            precision=np.e #reset stepping range precision
+            
+        w2+=precision*k
         func=f"step:{_+1} {w2}x^2 +f(x)"
         funcs.append(func)
         brute_f_list.append(temp)
@@ -126,10 +133,12 @@ def haloLearn(stepsize:int):
         
         #if less error than function before, change RSS to new min
         #print(f"step{_} f:{mean_slope}x |prec:{precision} estimated e:{ei} Rss={RSS}")
+        if abs(ei-RSS)<1e-4:
+            '''REACHED LIMITS OF DELTA RSS:'''
+            print('break at:',_,'| DELTA RSS=',(ei-RSS))
+            break;
+        
         if ei<RSS:
-            if abs(ei-RSS)<1e-4:
-                '''REACHED LIMITS OF DELTA RSS:'''
-                break;
             
             RSS=ei
             """functions can append here
@@ -149,7 +158,7 @@ def haloLearn(stepsize:int):
                 precision=np.log(precision)
             '''
             k*=-0.5 #change direction and lower the stepping range
-            precision=1 #reset stepping range precision
+            precision=np.e#reset stepping range precision to e
             
             """change direction and reset precision
             to approach limit of last best model result """
@@ -165,20 +174,24 @@ sq_ft=[2, 4, 6, 12, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 3
 price=[2, 2,4 ,3, 4, 5 , 9,7,8, 10, 15 ,14 ,16, 18, 29, 32,35,39 ,36, 55, 59, 63, 64, 65, 72, 109, 111, 124 ,127, 125, 126]# Y=f(x)
 
 if __name__=="__main__":
-    fig1.canvas.manager.set_window_title('curve + linear regression:haloLearn approach')
+    fig1.canvas.manager.set_window_title('polinomial regression:haloLearn approach')
 
     plt.clf()
     plt.scatter(sq_ft,price)
     plt.xlim(0,60)
     plt.ylim(0,120)
-    print("Example:multipleReg. haloLearn\nrun with step size=16")
-    haloLearn(16)
-    #multi_f(16)
-    
+    print("Example:poliReg. haloLearn\nrun with step size=16")
+    haloLearn(165)
+    multi_f(1000)
+    """
     for b,f,e in zip(brute_f_list,funcs,err_l):
         
         plt.plot(sq_ft, b, "--",label=f"y={ f } err:{e:.3f}")
         fig1.legend(loc='upper left')
         plt.pause(0.5)
+    """    
+    plt.plot(sq_ft, brute_f_list[-1], "--",label=f"y={ funcs[-1] } err:{err_l[-1]:.3f}")
+    plt.legend()
+    print(min(err_l))
     #fig1.legend(loc='upper left')
     plt.show()
