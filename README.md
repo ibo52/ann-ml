@@ -40,6 +40,6 @@
     4. check DELTA RSS: break if(DELTA RSS<1e-4)
     5. repeat as much as stepsize
   ### a sample figure for gradient descend model estimation.
-  - ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/gradientDescend polinomial_example.jpg)
+  - ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/gradientDescend%20polinomial_example.jpg)
 =======
 >>>>>>> 8a4ef523ec5ffea4869786b832f4cbc46e95fbf6
