@@ -30,5 +30,16 @@
     6. stop if delta-RSS if smaller than 1e-4
     7. sum function with linear one.
   - ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/polinomial_example.jpg)
+  ***
+- **the halolearn-multi.py solution for 2nd degree polinomial regression is valid just for this data. Because it fitted manually specifically to learn about to draw and play with functions, and behaviours of it over different circumstances. Thus it is not good to apply other datas to estimate an function. So, another solution for modelling problem needed**
+- gradDescent.py
+  - [x] _is a mathematical solution for high degree polinomials.(just 2nd degree for now)._
+    1. algorithm takes partial derivatives of cost function according to w2,w1,w0 coeffs.
+    2. then estimates the gradients by this calculation. coef: wi=(-2/n)*SUM(dcost/dwi)
+    3. change coefficients with wi_new=wi- gradient*precision
+    4. check DELTA RSS: break if(DELTA RSS<1e-4)
+    5. repeat as much as stepsize
+  ### a sample figure for gradient descend model estimation.
+  - ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/gradientDescend polinomial_example.jpg)
 =======
 >>>>>>> 8a4ef523ec5ffea4869786b832f4cbc46e95fbf6
