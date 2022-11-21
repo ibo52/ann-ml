@@ -49,10 +49,10 @@
    3. Calculate validation set error of model.
    4. display results.
  ## validation error as split=0.2
- - ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/polinomial_example.jpg)
+ - ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/test-valid(split:0.2).jpg)
  
  ## validation error as split=0.65
- - ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/polinomial_example.jpg)
+ - ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/test-valid(split:0.65).jpg)
  
 =======
 >>>>>>> 8a4ef523ec5ffea4869786b832f4cbc46e95fbf6
