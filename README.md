@@ -41,5 +41,18 @@
     5. repeat as much as stepsize
   ### a sample figure for gradient descend model estimation.
   - ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/gradientDescend%20polinomial_example.jpg)
+  ***
+- TEST_VALID.py
+ - [x] split dataset to test and validation to determine true error and asses performance to model.
+   1. split set by given split range
+   2. Then run gradient descent algorthm on test set.
+   3. Calculate validation set error of model.
+   4. display results.
+ ## validation error as split=0.2
+ - ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/polinomial_example.jpg)
+ 
+ ## validation error as split=0.65
+ - ![program output](https://github.com/ibo52/ann-ml/blob/master/out%20imgs/polinomial_example.jpg)
+ 
 =======
 >>>>>>> 8a4ef523ec5ffea4869786b832f4cbc46e95fbf6
