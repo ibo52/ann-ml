@@ -5,10 +5,19 @@ import numpy as np
 from utils import *#my function definitions
 """halilibo mut"""
 
-from simple_linear_regression_example_ANN import fig1
-
+from simple_linear_regression_BruteForce import fig1
 #polinomial regression with gradient descent algorithm
-def gradientDesc(sq_ft=[],price=[], stepsize=16,power=2,precision=1e-8):
+
+class gd2(GD):
+    def __init__(self,train_x, train_y,functionOrder=2):
+        super().__init__(train_x, train_y)
+
+    def final():
+        global err_l
+        global brute_f_list
+        return self.w,self.function,err_l[-1],brute_f_list[-1]
+    
+def gradientDesc(sq_ft=[],price=[], stepsize=2000,power=2,precision=1e-8):
     """generates polinomial model at order of given power"""
     #global price
     #global sq_ft
@@ -47,7 +56,7 @@ def gradientDesc(sq_ft=[],price=[], stepsize=16,power=2,precision=1e-8):
 
     #MAIN LOOP (will train model as stepsize)
     for _step in range(  1,stepsize+1  ):
-
+        
         temp=[]
 
         #train model by given dataset
@@ -64,7 +73,7 @@ def gradientDesc(sq_ft=[],price=[], stepsize=16,power=2,precision=1e-8):
             temp.append( out )#keep predicted outputs
             
             ei=std_dev_non_sqrt( [ price[idx] ],[out])#RSS = SUM(y-yi)/n
-
+            
             #calculate derivative of Cost function by wi(all weights)
             #to determine Gradient descent
             for _ in range(power,0,-1):
@@ -72,16 +81,17 @@ def gradientDesc(sq_ft=[],price=[], stepsize=16,power=2,precision=1e-8):
             d_w_list[0]=ei
             
             #RSS=ei
-
+            
             #new coefficients has calculated by gradient descent magnitude
             for _ in range(power,0,-1):
                 w_list[_]-=( precision*d_w_list[_] )
             w_list[0]-=( precision* d_w_list[0])
-
-            d_w_list=[0 for _ in range(power+1)]#clear derivative list
             
+            d_w_list=[0 for _ in range(power+1)]#clear derivative list
+
+
         ei=std_dev(price,temp)#mean squared error(cost) of trained model
-        
+
         if abs(ei-RSS_prev)<1e-4:
             '''REACHED LIMITS OF DELTA RSS: MEANS the current trained model
             have very close outputs to last trained models. Thus no need
@@ -111,7 +121,6 @@ def train(x,y,splitRate=.8):
     
     TEST=int(len_x*splitRate)#first 80 element index
     VALID=(len_x - TEST)#last remained indexes
-
     print(f"splitting into %{splitRate*100} test and %{(1-splitRate)*100:.3f} validation set")
     w,func,test_err,test_out =gradientDesc(x[:TEST],y[:TEST], power=2)
 
@@ -157,7 +166,7 @@ if __name__=="__main__":
     
     plt.xlim(min(sq_ft)-5,max(sq_ft)+5)
     plt.ylim(min(price)-5,max(price)+5)
-    
+
     print("Example:poliReg. with gradientDescent\nSplitting dataset to test and validation sets")
     print("-"*40,"\n!!! IMPORTANT !!!\n","-"*40)
     print("if error rate changing badly, This means the precision(learning rate)\nchoosed too big for this set")

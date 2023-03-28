@@ -1,4 +1,5 @@
 from math import sqrt
+import numpy as np
 """halilibo mut
 my simple linear regression functions"""
 #
@@ -24,9 +25,19 @@ def std_dev_mean(xi:list,mean):
     sum_error=0
     for a in range(l):
         
-        val=((xi[a]-mean)**2 )/l
+        val=((xi[a]-mean)**2 )
         sum_error+=val
-    return sqrt(sum_error)
+    return sqrt(sum_error/l)
+
+def std_dev_non_sqrt(x:list,xi:list):
+    """calculates error rate sums of estimated list xi, by given list(dataset) x"""
+    l=len(x)
+    sum_error=0
+    for a in range(l):
+        
+        val=((x[a]-xi[a]) )
+        sum_error+=val
+    return (sum_error)/l
 
 def std_dev(x:list,xi:list):
     """calculates error rate sums of estimated list xi, by given list(dataset) x"""
@@ -34,9 +45,9 @@ def std_dev(x:list,xi:list):
     sum_error=0
     for a in range(l):
         
-        val=((x[a]-xi[a])**2 )/l
+        val=((x[a]-xi[a])**2 )
         sum_error+=val
-    return sqrt(sum_error)
+    return sqrt(sum_error/l)
 
 def cis(err_l:list,num_elements=6):
     """finds minimum indexes of error rates between functions"""
